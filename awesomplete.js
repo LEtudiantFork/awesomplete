@@ -39,7 +39,7 @@ var _ = function (input, o) {
 	// Create necessary elements
 
 	this.container = $.create("div", {
-		className: "awesomplete",
+		className: "atc-awesomplete",
 		around: input
 	});
 
@@ -49,7 +49,7 @@ var _ = function (input, o) {
 	});
 
 	this.status = $.create("span", {
-		className: "visually-hidden",
+		className: "atc-visually-hidden",
 		role: "status",
 		"aria-live": "assertive",
 		"aria-relevant": "additions",
@@ -138,24 +138,24 @@ _.prototype = {
 	},
 
 	get opened() {
-		return this.ul && this.ul.getAttribute("hidden") == null;
+		return this.ul && this.ul.getAttribute("atc-hidden") == null;
 	},
 
 	close: function () {
-		this.ul.setAttribute("hidden", "");
+		this.ul.setAttribute("atc-hidden", "");
 		this.index = -1;
 
-		$.fire(this.input, "awesomplete-close");
+		$.fire(this.input, "atc-awesomplete-close");
 	},
 
 	open: function () {
-		this.ul.removeAttribute("hidden");
+		this.ul.removeAttribute("atc-hidden");
 
 		if (this.autoFirst && this.index === -1) {
 			this.goto(0);
 		}
 
-		$.fire(this.input, "awesomplete-open");
+		$.fire(this.input, "atc-awesomplete-open");
 	},
 
 	next: function () {
@@ -185,7 +185,7 @@ _.prototype = {
 			this.status.textContent = lis[i].textContent;
 		}
 
-		$.fire(this.input, "awesomplete-highlight");
+		$.fire(this.input, "atc-awesomplete-highlight");
 	},
 
 	select: function (selected) {
@@ -194,7 +194,7 @@ _.prototype = {
 		if (selected) {
 			var prevented;
 
-			$.fire(this.input, "awesomplete-select", {
+			$.fire(this.input, "atc-awesomplete-select", {
 				text: selected.textContent,
 				preventDefault: function () {
 					prevented = true;
@@ -204,7 +204,7 @@ _.prototype = {
 			if (!prevented) {
 				this.replace(selected.textContent);
 				this.close();
-				$.fire(this.input, "awesomplete-selectcomplete");
+				$.fire(this.input, "atc-awesomplete-selectcomplete");
 			}
 		}
 	},
